@@ -1,2 +1,0 @@
-# AlbumApp
-First volume
