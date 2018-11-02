@@ -37,10 +37,11 @@ class AlbumSum extends Component {
               }
           ];
 
-        Actions.player({ tracks: TRACKS });
+        Actions.player({ tracks: this.props.Item.songs });
     }
 
     render() {
+        console.log(this.props.Item.songs);
         const { title, artist, thumbnail_image, image } = this.props.Item;
         const { headerContentStyle, thumbnailStyle, thumbnailContainerStyle,
             headerTextStyle, imageStyle } = styles;

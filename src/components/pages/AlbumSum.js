@@ -8,9 +8,10 @@ import { styles } from '../common/AlbumStyles';
 class AlbumSum extends Component {
 
     OnButtonPress() {
-        const { title, artist, thumbnail_image, image, url } = this.props.albumData;  
+        console.log(this.props.albumData);
+        const { title, artist, thumbnail_image, image, url, songs } = this.props.albumData;  
         
-        this.props.albumAdd({ title, artist, thumbnail_image, image, url });
+        this.props.albumAdd({ title, artist, thumbnail_image, image, url, songs });
     }
 
     render() {

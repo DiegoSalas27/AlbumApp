@@ -7,13 +7,14 @@ import {
 } from './types';
 
 
-export const albumAdd = ({ title, artist, thumbnail_image, image, url }) => {
+export const albumAdd = ({ title, artist, thumbnail_image, image, url, songs }) => {
     const { currentUser } = firebase.auth();
 
-    if (validarPost(currentUser, title)) {
+    if (validarPost(currentUser, title).length === 0) {
         return () => {
+            console.log('push', 'pusheando');     
             firebase.database().ref(`/users/${currentUser.uid}/albums`)
-            .push({ title, artist, thumbnail_image, image, url })
+            .push({ title, artist, thumbnail_image, image, url, songs })
             .then(() => ToastAndroid.showWithGravity(
                 `¡Has agregado ${title} a la playlist!`,
                 ToastAndroid.SHORT,
@@ -55,16 +56,19 @@ export const albumDelete = ({ uid }) => {
 };
 
 const validarPost = (currentUser, title) => {
-    let condition = true;
+    // let condition = true;
+    let result = [];
     firebase.database().ref(`/users/${currentUser.uid}/albums`)
         .on('value', snapshot => { 
-            for (let i = 0; i < _.map(snapshot.val()).length; i++) {
-                if (_.map(snapshot.val())[i].title === title) {
-                    condition = false;            
-                }
-            }
+            result = _.map(snapshot.val()).filter(word => word.title === title);
+            // for (let i = 0; i < _.map(snapshot.val()).length; i++) {
+            //     if (_.map(snapshot.val())[i].title === title) {
+            //         condition = false;      
+            //         console.log('validando:', condition);     
+            //     }
+            // }
         });
         
-    return condition;  
+    return result;  
 };
 
