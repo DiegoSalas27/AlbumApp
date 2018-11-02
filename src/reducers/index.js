@@ -8,5 +8,5 @@ export default combineReducers({
     auth: AuthReducer, // property of state that we produce
     sinup: SignupReducer,
     userForm: UserReducer,
-    album: AlbumReducer
+    albums: AlbumReducer
 });

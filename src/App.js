@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import { View, StatusBar } from 'react-native';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
-import firebase from '@firebase/app';
-import '@firebase/auth';
+import firebase from 'firebase';
 import ReduxThunk from 'redux-thunk'; //it is a middleware
 import reducers from './reducers';
 import RouterComponent from './Router';
@@ -41,7 +40,7 @@ class App extends Component {
 
 const styles = {
     container: {
-        flexGrow: 1
+        flexGrow: 1,
     },
 };
 

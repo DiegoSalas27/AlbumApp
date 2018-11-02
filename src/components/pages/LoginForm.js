@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import { Actions } from 'react-native-router-flux';
 import { View, Text, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
-import { emailChanged, passwordChanged, loginUser } from '../actions';
-import { CardSection, Input, Button, Spinner, Logo } from '../components/common';
+import { emailChanged, passwordChanged, loginUser } from '../../actions';
+import { CardSection, Button, Spinner, Logo } from '../common';
+import { SignForm, styles } from '../common/SignForm';
 
 class LoginForm extends Component {
     onEmailChangeText(text) {
@@ -57,23 +58,8 @@ class LoginForm extends Component {
                     <Logo title="Album App" />
                 </View>
                 
-                <CardSection>
-                    <Input 
-                        label="Email"
-                        placeholder="email@gmail.com"
-                        onChangeText={this.onEmailChangeText.bind(this)}
-                        value={this.props.email}
-                    />
-                </CardSection>
-                <CardSection>
-                    <Input
-                        secureTextEntry
-                        label="Password"
-                        placeholder="contraseña"
-                        onChangeText={this.onPasswordChange.bind(this)}
-                        value={this.props.password}
-                    />
-                </CardSection>    
+                <SignForm Email={this.onEmailChangeText.bind(this)} Password={this.onPasswordChange.bind(this)} />  
+
                 {this.renderError()}
                 {this.renderButton()} 
                 <CardSection>
@@ -86,36 +72,6 @@ class LoginForm extends Component {
         );
     }
 }
-
-const styles = {
-    errorTextStyle: {
-        fontSize: 20,
-        color: 'red'
-    },
-
-    logoContainer: {
-        alignItems: 'center',
-        marginBottom: 20,
-        marginTop: 20
-    },
-    signupTextCont: {
-        flexGrow: 1,
-        alignItems: 'flex-end',
-        justifyContent: 'center',
-        paddingVertical: 66,
-        flexDirection: 'row'
-    },
-    singupText: {
-        color: 'rgba(255, 255, 255, 0.7)',
-        fontSize: 16
-    },
-    singupButton: {
-        color: '#ffffff',
-        fontSize: 16,
-        fontWeight: '500'
-    }
-
-};
 
 const mapStateTpProps = ({ auth }) => {
     const { email, password, error, loading } = auth;

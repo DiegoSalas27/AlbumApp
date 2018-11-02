@@ -7,13 +7,16 @@
     "test": "jest"
   },
   "dependencies": {
-    "@firebase/app": "^0.3.4",
-    "@firebase/auth": "^0.7.8",
     "axios": "^0.18.0",
-    "firebase": "^5.5.6",
-    "react": "16.6.0-alpha.8af6728",
-    "react-native": "0.57.4",
+    "firebase": "^3.3.2",
+    "lodash": "^4.17.11",
+    "react": "16.3.1",
+    "react-native": "^0.57.4",
+    "react-native-elements": "^0.19.1",
     "react-native-router-flux": "^4.0.5",
+    "react-native-slider": "^0.11.0",
+    "react-native-vector-icons": "^6.0.2",
+    "react-native-video": "^3.2.1",
     "react-redux": "^5.1.0",
     "redux": "^4.0.1",
     "redux-thunk": "^2.3.0"
@@ -22,7 +25,7 @@
     "babel-jest": "23.6.0",
     "eslint-config-rallycoding": "^3.2.0",
     "jest": "23.6.0",
-    "metro-react-native-babel-preset": "0.48.2",
+    "metro-react-native-babel-preset": "0.49.0",
     "react-test-renderer": "16.6.0-alpha.8af6728"
   },
   "jest": {

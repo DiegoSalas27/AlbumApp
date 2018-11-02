@@ -1,6 +1,6 @@
 import React from 'react';
 import { Image, View, Text } from 'react-native';
-import AlbaLogo from '../../images/AlbumLogo.png';
+import AlbaLogo from '../../img/AlbumLogo.png';
 
 const Logo = ({ title }) => {
     return (
