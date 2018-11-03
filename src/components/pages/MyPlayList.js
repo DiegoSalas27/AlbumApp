@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import { FlatList, View, Text, StyleSheet, Dimensions } from 'react-native';
-import { List, ListItem, SearchBar } from 'react-native-elements';
+import { SearchBar } from 'react-native-elements';
 import _ from 'lodash';
-import { albumsFetch } from '../../actions';
+import { albumsFetch, setSearchField } from '../../actions';
 import ListItemGrid from '../ListItemGrid';
 import Fade from '../effectComponents/Fade';
 
@@ -12,52 +11,38 @@ const ITEM_WIDTH = Dimensions.get('window').width;
 
 class MyPlayList extends Component {
     state = {
-        grid: false,
-        columns: 2
+        columns: 2,
+        data: [],
+        filtered: false
     }
+
     componentWillMount() {
         this.props.albumsFetch();
     }
 
-    renderItem({ item }) {
-        return (
-            <ListItem
-                roundAvatar
-                item={item}
-                avatar={item.thumbnail_image}
-                title={`Álbum: ${item.title}`}
-                subtitle={`Artista: ${item.artist}`}
-                containerStyle={{ borderBottomWidth: 0 }}
-                onPress={() => { Actions.albumDetail({ Item: item }); }}
-            />
-        );
-    }
-
-    renderSeparator = () => {
-        return (
-            <View 
-                style={{ 
-                    height: 1, 
-                    width: '86%', 
-                    backgroundColor: '#CED0CE', 
-                    marginLeft: '14%' }}
-            />
-        );
-    }
+    filterAlbums = (text) => {
+        const { albums } = this.props;
+        const filteredAlbums = albums.filter(album => {
+            return (album.title.toLowerCase().includes(text.toLowerCase()) ||
+            album.artist.toLowerCase().includes(text.toLowerCase()));
+        });
+        this.setState({ data: filteredAlbums, filtered: true });
+    };
 
     renderHeader = () => {
-        return <SearchBar
+        return (<SearchBar
                 placeholder='ingrese título de álbum...'
-                containerStyle={{ backgroundColor: '#0277BD', borderBottomColor: 'transparent', borderTopColor: 'transparent' }} 
+                containerStyle={{ backgroundColor: '#0277BD',
+                borderBottomColor: 'transparent',
+                borderTopColor: 'transparent' }} 
                 inputStyle={{ backgroundColor: 'white' }}
-               />;
+                onChangeText={this.filterAlbums}
+        />);
     };
 
     render() {
-        console.log('grilla:', this.props.grid);
-        console.log(this.props.loading);
-        console.log(this.props.albums);
-        const { columns } = this.state;
+        const { columns, data, filtered } = this.state;
+        let albumData = null;
         if (this.props.loading) {
             return (
                 <View style={styles.viewStyle}>
@@ -67,12 +52,19 @@ class MyPlayList extends Component {
                 </View>
             );
         }
+
+        if (filtered) {
+            albumData = data;
+        } else {
+            albumData = this.props.albums;
+        }
+       
         if (this.props.albums.length !== 0) {
             return (
                 <View style={styles.container}>
                     <FlatList
                         numColumns={columns}
-                        data={this.props.albums}
+                        data={albumData}
                         renderItem={({ item }) => {
                             return <ListItemGrid itemWidth={(ITEM_WIDTH - (20 * columns)) / 2} album={item} />;
                         }}
@@ -81,17 +73,6 @@ class MyPlayList extends Component {
                     />
                     <Fade />
                 </View>);
-            // return (
-            //     <List containerStyle={{ borderTopWidth: 0, borderBottomWidth: 0, marginTop: -2 }}>
-            //     <FlatList
-            //         data={this.props.albums}
-            //         renderItem={this.renderItem}
-            //         keyExtractor={(item, index) => index.toString()}
-            //         ItemSeparatorComponent={this.renderSeparator}
-            //         ListHeaderComponent={this.renderHeader}
-            //     />
-            //     </List>
-            // );
         }
         
         return (
@@ -123,9 +104,9 @@ const mapStateToProps = state => {
         return { ...val, uid }; //{ title: 'taylor', artis: 'swift'}
     });
 
-    const { loading } = state.albums;
+    const { loading, searchField } = state.albums;
 
-    return { albums, loading };
+    return { albums, loading, searchField };
 };
 
 // when ever any piece of state upodates, the connect helper will rerun mapStateToProps

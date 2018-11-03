@@ -3,7 +3,8 @@ import firebase from 'firebase';
 import { Actions } from 'react-native-router-flux';
 import _ from 'lodash';
 import {
-    ALBUM_FETCH_SUCCESS
+    ALBUM_FETCH_SUCCESS,
+    CHANGE_SEARCH_FIELD
 } from './types';
 
 
@@ -47,6 +48,11 @@ export const albumDelete = ({ title, uid }) => {
         });
     };
 };
+
+export const setSearchField = (text) => ({
+    type: CHANGE_SEARCH_FIELD,
+    payload: text
+});
 
 const validarPost = (currentUser, title) => {
     let result = [];
