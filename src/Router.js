@@ -26,7 +26,9 @@ const RouterComponent = () => {
                     />
                     <Scene 
                         onLeft={() => Actions.main({ type: 'reset' })}
+                        onRight={() => Actions.myList({ grid: true })}
                         leftTitle="Más populares "
+                        rightTitle="Mostrar grid"
                         key="myList" 
                         component={MyPlayList} title="PlayList"
                     />

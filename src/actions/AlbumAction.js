@@ -15,20 +15,12 @@ export const albumAdd = ({ title, artist, thumbnail_image, image, url, songs }) 
             console.log('push', 'pusheando');     
             firebase.database().ref(`/users/${currentUser.uid}/albums`)
             .push({ title, artist, thumbnail_image, image, url, songs })
-            .then(() => ToastAndroid.showWithGravity(
-                `¡Has agregado ${title} a la playlist!`,
-                ToastAndroid.SHORT,
-                ToastAndroid.CENTER
-            ));
+            .then(() => toastMessage(`¡Has agregado ${title} a la playlist!`));
         };
     }
 
     return () => {
-        ToastAndroid.showWithGravity(
-            '¡Álbum ya existe en la playlist!',
-            ToastAndroid.SHORT,
-            ToastAndroid.CENTER
-        );
+        toastMessage('¡Álbum ya existe en la playlist!');
     };
 };
 
@@ -43,32 +35,33 @@ export const albumsFetch = () => {
     };
 };
 
-export const albumDelete = ({ uid }) => {
+export const albumDelete = ({ title, uid }) => {
     const { currentUser } = firebase.auth();
 
     return () => {
         firebase.database().ref(`/users/${currentUser.uid}/albums/${uid}`)
         .remove()
         .then(() => {
+            toastMessage(`Se ha eliminado ${title} de la playlist.`);
             Actions.myList({ type: 'reset' });
         });
     };
 };
 
 const validarPost = (currentUser, title) => {
-    // let condition = true;
     let result = [];
     firebase.database().ref(`/users/${currentUser.uid}/albums`)
         .on('value', snapshot => { 
             result = _.map(snapshot.val()).filter(word => word.title === title);
-            // for (let i = 0; i < _.map(snapshot.val()).length; i++) {
-            //     if (_.map(snapshot.val())[i].title === title) {
-            //         condition = false;      
-            //         console.log('validando:', condition);     
-            //     }
-            // }
         });
         
     return result;  
 };
 
+const toastMessage = (texto) => {
+    ToastAndroid.showWithGravity(
+        texto,
+        ToastAndroid.SHORT,
+        ToastAndroid.CENTER
+    );
+};

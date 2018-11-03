@@ -8,6 +8,7 @@ export class SignForm extends Component {
             <View>
                 <CardSection>
                     <Input 
+                        type='email'
                         label="Email"
                         placeholder="email@gmail.com"
                         onChangeText={this.props.Email}

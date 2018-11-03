@@ -28,7 +28,7 @@ class App extends Component {
             <Provider store={store}>
                 <View style={styles.container}>
                     <StatusBar
-                        backgroundColor="#01579B"
+                        backgroundColor="#01355D"
                         barStyle="light-content"
                     />
                     <RouterComponent />

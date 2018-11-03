@@ -2,17 +2,18 @@ import React, { Component } from 'react';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import { albumDelete } from '../../actions';
-import { Text, View, Image, ScrollView } from 'react-native';
+import { Text, View, Image, ScrollView, Linking } from 'react-native';
 import { CardSection, Button, Card, Confirm } from '../common';
+import { Button2 } from '../common/Button2';
 import { styles } from '../common/AlbumStyles';
 
 class AlbumSum extends Component {
     state = { showModal: false };
 
     onAccept() {
-        const { uid } = this.props.Item;
+        const { title, uid } = this.props.Item;
 
-        this.props.albumDelete({ uid });
+        this.props.albumDelete({ title, uid });
         this.setState({ showModal: false });
     }
 
@@ -21,28 +22,12 @@ class AlbumSum extends Component {
     }
 
     OnButtonPress() {
-        //  { title, artist, thumbnail_image, image, url } = this.props.albumData;  
-        const TRACKS = [
-              {
-                artist: 'Taylor Swift',
-                title: 'Picture to Born',
-                albumArtUrl: 'https://images-na.ssl-images-amazon.com/images/I/61McsadO1OL.jpg',
-                audioUrl: 'https://albumapp-api.herokuapp.com/Picture_To_Born.mp3'
-              },
-              {
-                artist: 'Taylor Swift',
-                title: 'Love Story',
-                albumArtUrl: 'https://images-na.ssl-images-amazon.com/images/I/61McsadO1OL.jpg',
-                audioUrl: 'https://albumapp-api.herokuapp.com/Love_Story.mp3'
-              }
-          ];
-
-        Actions.player({ tracks: this.props.Item.songs });
+        Actions.player({ tracks: this.props.Item.songs, album: this.props.Item.title });
     }
 
     render() {
         console.log(this.props.Item.songs);
-        const { title, artist, thumbnail_image, image } = this.props.Item;
+        const { title, artist, thumbnail_image, image, url } = this.props.Item;
         const { headerContentStyle, thumbnailStyle, thumbnailContainerStyle,
             headerTextStyle, imageStyle } = styles;
         return (
@@ -57,6 +42,9 @@ class AlbumSum extends Component {
                                 <Text style={headerTextStyle}>{title}</Text>
                                 <Text>{artist} </Text>
                             </View>
+                            <Button2 onPress={() => Linking.openURL(url)}>
+                                Comprar
+                            </Button2>
                         </CardSection>
 
                         <CardSection>
