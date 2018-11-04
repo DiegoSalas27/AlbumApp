@@ -1,16 +1,18 @@
 import React, { Component } from 'react';
-import { ScrollView } from 'react-native';
+import { ScrollView, View } from 'react-native';
 import axios from 'axios';
+import Spinner from 'react-native-spinkit';
 import AlbumSum from './AlbumSum';
 
 class AlbumList extends Component {
   state = {
-    albums: []
+    albums: [],
+    loading: true
   };
 
   componentDidMount() {
     axios.get('https://albumapp-api.herokuapp.com/albums')
-      .then(response => this.setState({ albums: response.data }));
+      .then(response => this.setState({ albums: response.data, loading: false }));
   }
 
   renderAlbums() {
@@ -20,6 +22,14 @@ class AlbumList extends Component {
   }
 
   render() {
+    if (this.state.loading) {
+      return (
+        <View style={styles.viewStyle}>
+          <Spinner color={'white'} size={37} type={'Circle'} />
+        </View>
+      );
+    }
+
     return (
       <ScrollView style={{ flex: 1, backgroundColor: '#0277BD' }}>
         {this.renderAlbums()}
@@ -27,5 +37,14 @@ class AlbumList extends Component {
     );
   }
 }
+
+const styles = {
+  viewStyle: {
+    backgroundColor: '#0277BD',
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  }
+};
 
 export default AlbumList;

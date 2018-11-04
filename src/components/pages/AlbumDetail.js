@@ -26,7 +26,6 @@ class AlbumSum extends Component {
     }
 
     render() {
-        console.log(this.props.Item.songs);
         const { title, artist, thumbnail_image, image, url } = this.props.Item;
         const { headerContentStyle, thumbnailStyle, thumbnailContainerStyle,
             headerTextStyle, imageStyle } = styles;

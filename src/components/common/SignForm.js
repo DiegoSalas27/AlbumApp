@@ -8,9 +8,11 @@ export class SignForm extends Component {
             <View>
                 <CardSection>
                     <Input 
-                        type='email'
+                        type='email-address'
                         label="Email"
                         placeholder="email@gmail.com"
+                        keyboardType="email-address"
+                        autoCapitalize="none"
                         onChangeText={this.props.Email}
                         value={this.props.email}
                     />
@@ -55,6 +57,11 @@ export const styles = {
         color: '#ffffff',
         fontSize: 16,
         fontWeight: '500'
+    },
+    spinnerStyle: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: 30
     }
-
 };

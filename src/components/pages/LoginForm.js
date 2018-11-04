@@ -3,8 +3,9 @@ import { Actions } from 'react-native-router-flux';
 import { View, Text, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 import { emailChanged, passwordChanged, loginUser } from '../../actions';
-import { CardSection, Button, Spinner, Logo } from '../common';
+import { CardSection, Button, Logo } from '../common';
 import { SignForm, styles } from '../common/SignForm';
+import Spinner from 'react-native-spinkit';
 
 class LoginForm extends Component {
     onEmailChangeText(text) {
@@ -39,7 +40,11 @@ class LoginForm extends Component {
 
     renderButton() {
         if (this.props.loading) {
-            return <Spinner size="large" />;
+            return (
+                <View style={styles.spinnerStyle}>
+                    <Spinner color={'white'} size={37} type={'Circle'} />
+                </View>
+            );
         }
 
         return (

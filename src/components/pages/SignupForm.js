@@ -2,9 +2,14 @@ import React, { Component } from 'react';
 import { Actions } from 'react-native-router-flux';
 import { View, Text, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
-import { emailChanged, passwordChanged, signupUser } from '../../actions';
-import { CardSection, Button, Spinner, Logo } from '../common';
+import { emailChanged,
+     passwordChanged,
+     nameChanged, 
+     lastnameChanged, 
+     signupUser } from '../../actions';
+import { CardSection, Button, Logo, Input } from '../common';
 import { SignForm, styles } from '../common/SignForm';
+import Spinner from 'react-native-spinkit';
 
 class SignupForm extends Component {
     onEmailChangeText(text) {
@@ -15,10 +20,18 @@ class SignupForm extends Component {
         this.props.passwordChanged(text);
     }
 
-    onButtonPress() {
-        const { email, password } = this.props;
+    onNameChangeText(text) {
+        this.props.nameChanged(text);
+    }
 
-        this.props.signupUser({ email, password });
+    onLastNameChangeText(text) {
+        this.props.lastnameChanged(text);
+    }
+
+    onButtonPress() {
+        const { email, password, name, lastname } = this.props;
+
+        this.props.signupUser({ email, password, name, lastname });
     }
 
     logIn() {
@@ -39,7 +52,11 @@ class SignupForm extends Component {
 
     renderButton() {
         if (this.props.loading) {
-            return <Spinner size="large" />;
+            return (
+                <View style={styles.spinnerStyle}>
+                    <Spinner color={'white'} size={37} type={'Circle'} />
+                </View>
+            );
         }
 
         return (
@@ -57,6 +74,24 @@ class SignupForm extends Component {
                 <View style={styles.logoContainer}>
                     <Logo title="Registrar nueva cuenta" />                  
                 </View>
+
+                <CardSection>
+                    <Input 
+                        label="nombres"
+                        placeholder="nombres"
+                        onChangeText={this.onNameChangeText.bind(this)}
+                        value={this.props.name}
+                    />
+                </CardSection>
+
+                <CardSection>
+                    <Input 
+                        label="apellidos"
+                        placeholder="apellidos"
+                        onChangeText={this.onLastNameChangeText.bind(this)}
+                        value={this.props.lastname}
+                    />
+                </CardSection>
                 
                 <SignForm Email={this.onEmailChangeText.bind(this)} Password={this.onPasswordChange.bind(this)} />   
 
@@ -74,11 +109,15 @@ class SignupForm extends Component {
 }
 
 const mapStateTpProps = ({ sinup }) => {
-    const { email, password, error, loading } = sinup;
+    const { email, password, name, lastname, error, loading } = sinup;
     
-    return { email, password, error, loading };
+    return { email, password, name, lastname, error, loading };
 };
 
 export default connect(mapStateTpProps, {
-    emailChanged, passwordChanged, signupUser
+    emailChanged,
+    passwordChanged,
+    nameChanged,
+    lastnameChanged,
+    signupUser
 })(SignupForm);

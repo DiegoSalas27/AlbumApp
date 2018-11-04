@@ -28,7 +28,7 @@ const styles = {
         paddingHorizontal: 16,
     },
     buttonStyle: {
-        width: 140,
+        width: 130,
         height: 40,
         backgroundColor: '#2D09A1',
         borderRadius: 25,

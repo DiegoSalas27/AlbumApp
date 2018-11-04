@@ -1,27 +1,19 @@
 import { ToastAndroid } from 'react-native';
 import firebase from 'firebase';
 import { Actions } from 'react-native-router-flux';
-import _ from 'lodash';
 import {
-    ALBUM_FETCH_SUCCESS,
-    CHANGE_SEARCH_FIELD
+    ALBUM_FETCH_SUCCESS
 } from './types';
 
 
 export const albumAdd = ({ title, artist, thumbnail_image, image, url, songs }) => {
     const { currentUser } = firebase.auth();
 
-    if (validarPost(currentUser, title).length === 0) {
-        return () => {
-            console.log('push', 'pusheando');     
-            firebase.database().ref(`/users/${currentUser.uid}/albums`)
-            .push({ title, artist, thumbnail_image, image, url, songs })
-            .then(() => toastMessage(`¡Has agregado ${title} a la playlist!`));
-        };
-    }
-
     return () => {
-        toastMessage('¡Álbum ya existe en la playlist!');
+        console.log('push', 'pusheando');     
+        firebase.database().ref(`/users/${currentUser.uid}/albums`)
+        .push({ title, artist, thumbnail_image, image, url, songs })
+        .then(() => toastMessage(`¡Has agregado ${title} a la playlist!`));
     };
 };
 
@@ -44,24 +36,9 @@ export const albumDelete = ({ title, uid }) => {
         .remove()
         .then(() => {
             toastMessage(`Se ha eliminado ${title} de la playlist.`);
-            Actions.myList({ type: 'reset' });
+            Actions.myList({ type: 'pop' });
         });
     };
-};
-
-export const setSearchField = (text) => ({
-    type: CHANGE_SEARCH_FIELD,
-    payload: text
-});
-
-const validarPost = (currentUser, title) => {
-    let result = [];
-    firebase.database().ref(`/users/${currentUser.uid}/albums`)
-        .on('value', snapshot => { 
-            result = _.map(snapshot.val()).filter(word => word.title === title);
-        });
-        
-    return result;  
 };
 
 const toastMessage = (texto) => {
