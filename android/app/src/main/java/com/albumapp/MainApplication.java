@@ -2,6 +2,8 @@ package com.albumapp;
 
 import android.app.Application;
 
+import com.RNFetchBlob.RNFetchBlobPackage;
+import com.imagepicker.ImagePickerPackage;
 import com.brentvatne.react.ReactVideoPackage;
 import com.facebook.react.ReactApplication;
 import com.react.rnspinkit.RNSpinkitPackage;
@@ -28,7 +30,9 @@ public class MainApplication extends Application implements ReactApplication {
           new MainReactPackage(),
             new RNSpinkitPackage(),
               new VectorIconsPackage(),
-                new ReactVideoPackage()
+                new ReactVideoPackage(),
+                  new ImagePickerPackage(),
+                    new RNFetchBlobPackage()
       );
     }
 

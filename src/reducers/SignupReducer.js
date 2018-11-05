@@ -4,15 +4,11 @@ import {
     SIGNUP_USER,
     SIGNUP_USER_FAIL,
     SIGNUP_USER_SUCCESS,
-    NAME_CHANGED,
-    LASTNAME_CHANGED
 } from '../actions/types';
 
 const INITIAL_STATE = {
     email: '',
     password: '',
-    name: '',
-    lastname: '',
     user: null,
     error: '',
     loading: false
@@ -25,10 +21,6 @@ export default (state = INITIAL_STATE, action) => {
             return { ...state, email: action.payload }; 
         case PASSWORD_CHANGED:
             return { ...state, password: action.payload };
-        case NAME_CHANGED:
-            return { ...state, name: action.payload };
-        case LASTNAME_CHANGED:
-            return { ...state, lastname: action.payload };
         case SIGNUP_USER:
             return { ...state, loading: true, error: '' };
         case SIGNUP_USER_SUCCESS:

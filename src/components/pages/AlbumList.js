@@ -7,7 +7,7 @@ import AlbumSum from './AlbumSum';
 class AlbumList extends Component {
   state = {
     albums: [],
-    loading: true
+    loading: true,
   };
 
   componentDidMount() {

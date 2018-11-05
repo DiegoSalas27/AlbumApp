@@ -4,10 +4,8 @@ import { View, Text, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 import { emailChanged,
      passwordChanged,
-     nameChanged, 
-     lastnameChanged, 
      signupUser } from '../../actions';
-import { CardSection, Button, Logo, Input } from '../common';
+import { CardSection, Button, Logo } from '../common';
 import { SignForm, styles } from '../common/SignForm';
 import Spinner from 'react-native-spinkit';
 
@@ -18,14 +16,6 @@ class SignupForm extends Component {
 
     onPasswordChange(text) {
         this.props.passwordChanged(text);
-    }
-
-    onNameChangeText(text) {
-        this.props.nameChanged(text);
-    }
-
-    onLastNameChangeText(text) {
-        this.props.lastnameChanged(text);
     }
 
     onButtonPress() {
@@ -74,25 +64,7 @@ class SignupForm extends Component {
                 <View style={styles.logoContainer}>
                     <Logo title="Registrar nueva cuenta" />                  
                 </View>
-
-                <CardSection>
-                    <Input 
-                        label="nombres"
-                        placeholder="nombres"
-                        onChangeText={this.onNameChangeText.bind(this)}
-                        value={this.props.name}
-                    />
-                </CardSection>
-
-                <CardSection>
-                    <Input 
-                        label="apellidos"
-                        placeholder="apellidos"
-                        onChangeText={this.onLastNameChangeText.bind(this)}
-                        value={this.props.lastname}
-                    />
-                </CardSection>
-                
+               
                 <SignForm Email={this.onEmailChangeText.bind(this)} Password={this.onPasswordChange.bind(this)} />   
 
                 {this.renderError()}
@@ -109,15 +81,13 @@ class SignupForm extends Component {
 }
 
 const mapStateTpProps = ({ sinup }) => {
-    const { email, password, name, lastname, error, loading } = sinup;
+    const { email, password, error, loading } = sinup;
     
-    return { email, password, name, lastname, error, loading };
+    return { email, password, error, loading };
 };
 
 export default connect(mapStateTpProps, {
     emailChanged,
     passwordChanged,
-    nameChanged,
-    lastnameChanged,
     signupUser
 })(SignupForm);

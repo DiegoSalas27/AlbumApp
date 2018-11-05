@@ -47,8 +47,8 @@ const RouterComponent = () => {
                             key="myList" 
                             component={MyPlayList} title="PlayList"
                         />  
-                        <Scene key="profile" component={Profile} title="Profile" />
                     </Scene>
+                    <Scene key="profile" component={Profile} title="Perfil" />
                     <Scene key="albumDetail" component={AlbumDetail} title="Detalle de álbum" />
                     <Scene key="player" component={Player} hideNavBar />
                 </Stack>              
