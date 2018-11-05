@@ -1,6 +1,10 @@
 import firebase from 'firebase';
+import axios from 'axios';
 
 export default class Helpers {
+
+    //For users
+
     static setUserName(uid, name) {
         const userNamePath = `/users/${uid}/profile/name`;
         return firebase.database().ref(userNamePath).set(name);
@@ -70,5 +74,18 @@ export default class Helpers {
             }
             callback(bio);
         });
+    }
+
+    //For Album Api post and put
+
+    static updateAlbumLikes(_id, likes) {
+        axios.put(`https://albumapp-api.herokuapp.com/albums/${_id}`, {
+            likes: likes + 1
+        }).then(function (response) {
+            console.log(response);
+        })
+          .catch(function (error) {
+            console.log(error);
+        });  
     }
 }

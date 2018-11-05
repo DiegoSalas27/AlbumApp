@@ -79,7 +79,7 @@ class Menu extends Component {
                             <ListItem onPress={() => Actions.albumList()}>
                                 <Text>Los más escuchados</Text>
                             </ListItem>
-                            <ListItem>
+                            <ListItem onPress={() => Actions.genre()}>
                                 <Text>buscar por género</Text>
                             </ListItem>
                             <ListItem onPress={() => Actions.profile({ 

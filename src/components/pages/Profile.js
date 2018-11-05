@@ -59,7 +59,7 @@ class Profile extends Component {
         super(props);
         this.state = {
             imagePath: '',
-            name: this.props.avatar !== 'profile' ? this.props.name : '',
+            name: '',
             lastname: this.props.avatar !== 'profile' ? this.props.lastname : '',
             email: this.props.avatar !== 'profile' ? this.props.email : '',
             bio: this.props.avatar !== 'profile' ? this.props.bio : '', 
@@ -68,7 +68,16 @@ class Profile extends Component {
     }
 
     async componentWillMount() {
+        console.log(this.props.avatar);
+        console.log(this.props.name);
+
         try {
+            const user = await firebase.auth().currentUser;
+            
+            Helpers.getUserName(user.uid, (name) => {
+                this.setState({ name: name });
+            });
+
             const { currentUser } = await firebase.auth();
             this.setState({
                 uid: currentUser.uid
@@ -142,13 +151,16 @@ class Profile extends Component {
 
     render() {
         return (
-            <ScrollView contentContainerStyle={styles.container}>
+            <ScrollView contentContainerStyle={{ alignItems: 'center' }} style={styles.container}>
                 <TouchableOpacity
                     onPress={this.openImagePicker.bind(this)}
                     style={{ marginBottom: 40, marginTop: 20 }}
                 >
                     <View style={{ alignItems: 'center' }}>
-                        {this.renderAvatar()}
+                    <Image 
+                        style={{ width: 100, height: 100, borderRadius: 150 / 2 }}
+                        source={Avatar}
+                    />
                         <Text style={{ color: 'white' }}>Avatar </Text>
                     </View>
                 </TouchableOpacity>
@@ -212,8 +224,7 @@ class Profile extends Component {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        alignItems: 'center',
+        flex: 1, 
         backgroundColor: '#0277BD',
     },
     textInput: {
@@ -222,10 +233,11 @@ const styles = StyleSheet.create({
         borderColor: '#cecece',
         marginBottom: 20,
         borderRadius: 20,
-        paddingHorizontal: 16,
+        paddingHorizontal: 20,
+        marginHorizontal: 50,
         backgroundColor: 'rgba(255, 255, 255, 0.3)',
         color: '#ffffff',
-        width: ITEM_WIDTH - 20,
+        width: ITEM_WIDTH - 100,
     },
     buttonStyle: {
         justifyContent: 'center',
@@ -234,10 +246,11 @@ const styles = StyleSheet.create({
         borderColor: '#ccc',
         borderRadius: 20,
         paddingVertical: 10,
-        width: 150,
+        width: 100,
         backgroundColor: '#2D09A1',
         marginHorizontal: 20,
-        marginTop: 20
+        marginTop: 20,
+        marginBottom: 20
     },
     buttonText: {
         color: 'white',
@@ -255,7 +268,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 16,
         backgroundColor: 'rgba(255, 255, 255, 0.3)',
         color: '#ffffff',
-        width: ITEM_WIDTH - 20,
+        width: ITEM_WIDTH - 100,
     }
 });
 

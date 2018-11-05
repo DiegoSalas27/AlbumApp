@@ -5,7 +5,7 @@ import { Text, View, Image } from 'react-native';
 import { albumAdd, albumsFetch } from '../../actions';
 import { CardSection, Button, Card } from '../common';
 import { styles } from '../common/AlbumStyles'; 
-
+import Helpers from '../../lib/helpers';
 
 class AlbumSum extends Component {
     
@@ -14,9 +14,12 @@ class AlbumSum extends Component {
     }
 
     OnButtonPress() {
-        const { title, artist, thumbnail_image, image, url, songs } = this.props.albumData;  
+        const { title, artist, thumbnail_image, image, url, songs, _id, likes } = this.props.albumData;  
         
         this.props.albumAdd({ title, artist, thumbnail_image, image, url, songs });
+        console.log(this.props.albumData);
+
+        Helpers.updateAlbumLikes(_id, likes);
     }
 
     renderButton() {    
