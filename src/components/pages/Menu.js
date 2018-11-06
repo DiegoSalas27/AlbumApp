@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { View, Text, Image } from 'react-native';
 import { Actions } from 'react-native-router-flux';
+import { connect } from 'react-redux';
 import { Content, List, ListItem, Thumbnail } from 'native-base';
 import firebase from 'firebase';
+import { genreAll } from '../../actions';
 import Helpers from '../../lib/helpers';
 
 class Menu extends Component {
@@ -10,6 +12,7 @@ class Menu extends Component {
         super(props);
         this.state = { 
             avatarUrl: '',
+            title: '',
             userName: '',
             userLastname: '',
             userEmail: '',
@@ -19,7 +22,9 @@ class Menu extends Component {
     }
     
 
-    async componentWillMount() {
+    async componentDidMount() {
+        console.log('menu Mounted!');
+
         try {
           const user = await firebase.auth().currentUser;
 
@@ -65,6 +70,10 @@ class Menu extends Component {
         return <Text style={{ color: 'white', fontSize: 15 }}>Usuario</Text>; 
     }
 
+    displayAllGenres() {
+        this.props.genreAll();    
+    }
+
     render() {
         const { userName, userLastname, userEmail, userBio, avatarUrl } = this.state;
 
@@ -77,7 +86,7 @@ class Menu extends Component {
                 <View style={{ flex: 2 }}>
                     <Content>
                         <List>
-                            <ListItem onPress={() => Actions.albumList()}>
+                            <ListItem onPress={this.displayAllGenres.bind(this)}>
                                 <Text>Los más escuchados</Text>
                             </ListItem>
                             <ListItem onPress={() => Actions.genre()}>
@@ -103,4 +112,10 @@ class Menu extends Component {
     }
 }
 
-export default Menu;
+const mapStateToProps = ({ albums }) => {
+    const { genre } = albums;
+  
+    return { genre };
+  };
+
+export default connect(mapStateToProps, { genreAll })(Menu);

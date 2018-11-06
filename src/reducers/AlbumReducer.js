@@ -1,4 +1,5 @@
 import {
+    GENRE_ALL,
     GENRE_CHANGED,
     ALBUM_FETCH_SUCCESS
 } from '../actions/types';
@@ -17,6 +18,8 @@ export default (state = INITIAL_STATE, action) => {
                 albums: action.payload };
         case GENRE_CHANGED:
             return { ...state, genre: action.payload };
+        case GENRE_ALL:
+            return { ...state, genre: '' };
         default:
             return state;
     }

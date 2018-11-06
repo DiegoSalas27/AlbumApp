@@ -33,6 +33,7 @@ const RouterComponent = () => {
                         drawerIcon={MenuIcon}
                         drawerWidth={300}
                         hideNavBar
+                        type={ActionConst.REFRESH}
                     >
                         <Scene 
                             onRight={() => Actions.myList()}
