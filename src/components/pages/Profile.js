@@ -60,16 +60,15 @@ class Profile extends Component {
         this.state = {
             imagePath: '',
             name: '',
-            lastname: this.props.avatar !== 'profile' ? this.props.lastname : '',
-            email: this.props.avatar !== 'profile' ? this.props.email : '',
-            bio: this.props.avatar !== 'profile' ? this.props.bio : '', 
+            lastname: props.avatar !== '' ? props.lastname : '',
+            email: props.avatar !== '' ? props.email : '',
+            bio: props.avatar !== '' ? props.bio : '', 
             uid: ''    
         };
     }
 
-    async componentWillMount() {
+    async componentDidMount() {
         console.log(this.props.avatar);
-        console.log(this.props.name);
 
         try {
             const user = await firebase.auth().currentUser;
@@ -89,7 +88,7 @@ class Profile extends Component {
 
     openImagePicker() {
         const options = {
-            title: 'Seleccione avatar',
+            title: '¡Agrega tu avatar!',
             storageOptions: {
                 skipBackup: true,
                 path: 'images'
@@ -137,10 +136,10 @@ class Profile extends Component {
     }
 
     renderAvatar() {
-        if (this.props.avatar !== 'profile') {
+        if (this.props.avatar !== '') {
             return (<Image 
-            style={{ width: 100, height: 100, borderRadius: 150 / 2 }}
-            source={{ uri: this.props.avatar }}
+                style={{ width: 100, height: 100, borderRadius: 150 / 2 }}
+                source={{ uri: this.props.avatar }}
             />);
         } 
         return (<Image 
@@ -157,10 +156,7 @@ class Profile extends Component {
                     style={{ marginBottom: 40, marginTop: 20 }}
                 >
                     <View style={{ alignItems: 'center' }}>
-                    <Image 
-                        style={{ width: 100, height: 100, borderRadius: 150 / 2 }}
-                        source={Avatar}
-                    />
+                        {this.renderAvatar()}
                         <Text style={{ color: 'white' }}>Avatar </Text>
                     </View>
                 </TouchableOpacity>
