@@ -67,6 +67,7 @@ class Menu extends Component {
 
     render() {
         const { userName, userLastname, userEmail, userBio, avatarUrl } = this.state;
+
         return (
             <View style={{ flex: 1 }}>
                 <View style={{ flex: 1, backgroundColor: '#2c3e50', justifyContent: 'center', alignItems: 'center' }}>

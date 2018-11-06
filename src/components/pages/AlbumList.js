@@ -22,6 +22,7 @@ class AlbumList extends Component {
   }
 
   render() {
+    console.log(this.props.genre);
     if (this.state.loading) {
       return (
         <View style={styles.viewStyle}>

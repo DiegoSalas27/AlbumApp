@@ -7,7 +7,7 @@ import { CardSection, Button, Card, Confirm } from '../common';
 import { Button2 } from '../common/Button2';
 import { styles } from '../common/AlbumStyles';
 
-class AlbumSum extends Component {
+class AlbumDetail extends Component {
     state = { showModal: false };
 
     onAccept() {
@@ -76,5 +76,5 @@ class AlbumSum extends Component {
     }
 }
 
-export default connect(null, { albumDelete })(AlbumSum);
+export default connect(null, { albumDelete })(AlbumDetail);
 

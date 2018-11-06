@@ -4,7 +4,7 @@ import { Text, Image, View, TouchableWithoutFeedback, Animated, StyleSheet } fro
 import FadeIn from 'react-native-fade-in-image';
 import Fade from './effectComponents/Fade';
 
-export default class ListItemGrid extends Component {
+export default class ListGenreGrid extends Component {
     state = {
         animatePress: new Animated.Value(1)
     }
@@ -20,14 +20,16 @@ export default class ListItemGrid extends Component {
         Animated.timing(this.state.animatePress, {
             toValue: 1,
             duration: 200
-        }).start(() => Actions.albumDetail({ Item: this.props.album }));
+        }).start(() => Actions.albumList({ genre: this.props.genre }));
     }
-
+    
     render() {
-        const { itemWidth } = this.props;
-        const { title, image } = this.props.album;
-        console.log(this.props);
+        const { itemWidth, genre } = this.props;
 
+        console.log('prop', genre);
+        const str = genre.replace(/\s/g, '');
+        console.log(str);
+        
         return (
             <TouchableWithoutFeedback
                 onPressIn={() => this.animateIn()}
@@ -40,15 +42,15 @@ export default class ListItemGrid extends Component {
                 >   
                     <Fade>
                         <FadeIn>
-                            <Image style={imgStyle(itemWidth).imgStyles} source={{ uri: image }} />
+                            <Image style={imgStyle(itemWidth).imgStyles} source={require(`../img/Country.jpg`)} />
                         </FadeIn>
                         <View>
-                            <Text style={{ color: 'white', marginTop: 5 }}>{title}</Text>
+                            <Text style={{ color: 'white', marginTop: 5 }}>{genre}</Text>
                         </View>
                     </Fade>
                     
                 </Animated.View>
-                
+                    
             </TouchableWithoutFeedback>
         );
     }

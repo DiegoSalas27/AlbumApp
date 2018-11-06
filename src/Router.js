@@ -43,15 +43,16 @@ const RouterComponent = () => {
                         />
                         <Scene 
                             onLeft={() => Actions.main({ type: 'pop' })}
-                            leftTitle="Más populares "
+                            leftTitle="Más populares"
                             key="myList" 
-                            component={MyPlayList} title="PlayList"
+                            component={MyPlayList} 
+                            title="PlayList"
                         />
                         <Scene 
-                            title="Buscar por género"
                             key="genre" 
                             component={Genre}
-                        />    
+                            title="Buscar por género"   
+                        />     
                     </Scene>
                     <Scene key="albumDetail" component={AlbumDetail} title="Detalle de álbum" />
                     <Scene key="player" component={Player} hideNavBar />
