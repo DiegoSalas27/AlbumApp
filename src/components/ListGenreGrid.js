@@ -2,14 +2,23 @@ import React, { Component } from 'react';
 import { Actions } from 'react-native-router-flux';
 import { Text, Image, View, TouchableWithoutFeedback, Animated, StyleSheet } from 'react-native';
 import FadeIn from 'react-native-fade-in-image';
+import { connect } from 'react-redux';
+import { genreChanged } from '../actions';
 import Fade from './effectComponents/Fade';
 
-export default class ListGenreGrid extends Component {
+const thumbnails = {
+    'Country': require('../img/Country.jpg'),
+    'Rock': require('../img/Rock.jpg'),
+    'Rap&HipHop': require('../img/Rap&HipHop.jpg')
+};
+
+class ListGenreGrid extends Component {
     state = {
         animatePress: new Animated.Value(1)
     }
 
     animateIn() {
+        this.props.genreChanged(this.props.genre); 
         Animated.timing(this.state.animatePress, {
             toValue: 0.9,
             duration: 200
@@ -20,15 +29,16 @@ export default class ListGenreGrid extends Component {
         Animated.timing(this.state.animatePress, {
             toValue: 1,
             duration: 200
-        }).start(() => Actions.albumList({ genre: this.props.genre }));
+        }).start(() => Actions.albumList());
     }
     
     render() {
         const { itemWidth, genre } = this.props;
 
-        console.log('prop', genre);
-        const str = genre.replace(/\s/g, '');
-        console.log(str);
+        console.log(genre);
+
+        const image = genre.replace(/\s/g, '');
+        const thumbnail = thumbnails[image];
         
         return (
             <TouchableWithoutFeedback
@@ -42,7 +52,7 @@ export default class ListGenreGrid extends Component {
                 >   
                     <Fade>
                         <FadeIn>
-                            <Image style={imgStyle(itemWidth).imgStyles} source={require(`../img/Country.jpg`)} />
+                            <Image style={imgStyle(itemWidth).imgStyles} source={thumbnail} />
                         </FadeIn>
                         <View>
                             <Text style={{ color: 'white', marginTop: 5 }}>{genre}</Text>
@@ -70,3 +80,5 @@ const imgStyle = (props) => StyleSheet.create({
         height: 120 
     }
 });
+
+export default connect(null, { genreChanged })(ListGenreGrid);

@@ -2,6 +2,7 @@ import { ToastAndroid } from 'react-native';
 import firebase from 'firebase';
 import { Actions } from 'react-native-router-flux';
 import {
+    GENRE_CHANGED,
     ALBUM_FETCH_SUCCESS
 } from './types';
 
@@ -38,6 +39,13 @@ export const albumDelete = ({ title, uid }) => {
             toastMessage(`Se ha eliminado ${title} de la playlist.`);
             Actions.myList({ type: 'pop' });
         });
+    };
+};
+
+export const genreChanged = (genre) => {
+    return {
+        type: GENRE_CHANGED,
+        payload: genre
     };
 };
 

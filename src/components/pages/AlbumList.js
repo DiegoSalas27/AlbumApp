@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { ScrollView, View } from 'react-native';
 import axios from 'axios';
+import { connect } from 'react-redux';
 import Spinner from 'react-native-spinkit';
 import AlbumSum from './AlbumSum';
 
@@ -11,7 +12,8 @@ class AlbumList extends Component {
   };
 
   componentDidMount() {
-    axios.get('https://albumapp-api.herokuapp.com/albums')
+    const { genre } = this.props;
+    axios.get(`https://albumapp-api.herokuapp.com/albums?genre=${genre}`)
       .then(response => this.setState({ albums: response.data, loading: false }));
   }
 
@@ -48,4 +50,10 @@ const styles = {
   }
 };
 
-export default AlbumList;
+const mapStateToProps = ({ albums }) => {
+  const { genre } = albums;
+
+  return { genre };
+};
+
+export default connect(mapStateToProps, null)(AlbumList);
