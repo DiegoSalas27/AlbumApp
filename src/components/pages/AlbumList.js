@@ -12,7 +12,8 @@ class AlbumList extends Component {
   state = {
     albums: [],
     loading: true,
-    limit: 2
+    limit: 2,
+    renderMore: true
   };
 
   componentDidMount() {
@@ -21,7 +22,7 @@ class AlbumList extends Component {
     console.log('title', this.props.title);
 
     axios.get(`https://albumapp-api.herokuapp.com/albums?genre=${genre}&offset=0&limit=${limit}`)
-      .then(response => this.setState({ albums: response.data, loading: false }));
+      .then(response => this.setState({ albums: response.data, loading: false}));
   }
 
   renderAlbums() {
@@ -37,7 +38,13 @@ class AlbumList extends Component {
     console.log(limit);
   
     axios.get(`https://albumapp-api.herokuapp.com/albums?genre=${genre}&offset=0&limit=${limit+2}`)
-      .then(response => this.setState({ albums: response.data, loading: false }));
+      .then(response => {
+        tempAlbums = this.state.albums.slice(); // Creo una copia del arreglo en el state
+        if(tempAlbums.toString() == response.data.toString()){
+            this.props.stopRender();
+        }
+        this.setState({ albums: response.data, loading: false, renderMore: false})
+      });
 
     this.setState({ limit: limit + 2, loading: true }); //this resets the component, but won't unmount it
   }
