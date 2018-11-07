@@ -13,16 +13,19 @@ class AlbumList extends Component {
     albums: [],
     loading: true,
     limit: 2,
-    renderMore: true
+    albumsT: []
   };
 
   componentDidMount() {
-    const { limit, offSet } = this.state;
+    const { limit } = this.state;
     const { genre } = this.props; 
     console.log('title', this.props.title);
 
     axios.get(`https://albumapp-api.herokuapp.com/albums?genre=${genre}&offset=0&limit=${limit}`)
-      .then(response => this.setState({ albums: response.data, loading: false}));
+      .then(response => this.setState({ albums: response.data, loading: false }));
+    
+    axios.get(`https://albumapp-api.herokuapp.com/albums?genre=${genre}`)
+      .then(response => this.setState({ albumsT: response.data }));  
   }
 
   renderAlbums() {
@@ -35,23 +38,19 @@ class AlbumList extends Component {
     const { limit } = this.state;
     const { genre } = this.props; 
     
-    console.log(limit);
+    console.log(this.state.albums);
   
     axios.get(`https://albumapp-api.herokuapp.com/albums?genre=${genre}&offset=0&limit=${limit+2}`)
-      .then(response => {
-        tempAlbums = this.state.albums.slice(); // Creo una copia del arreglo en el state
-        if(tempAlbums.toString() == response.data.toString()){
-            this.props.stopRender();
-        }
-        this.setState({ albums: response.data, loading: false, renderMore: false})
-      });
+      .then(response => { this.setState({ albums: response.data, loading: false }); });
 
     this.setState({ limit: limit + 2, loading: true }); //this resets the component, but won't unmount it
   }
 
   renderButton() {
+    const { albums, albumsT } = this.state;
+
     console.log(this.props.loadBtn);
-    if (this.props.loadBtn) {
+    if (this.props.loadBtn && albums.length !== albumsT.length) {
       return (
         <Fade fadeIt={5000}>
           <CardSection>
@@ -64,8 +63,6 @@ class AlbumList extends Component {
   }
 
   render() {
-    console.log(this.props.genre);
-    console.log(this.state.albums);
     if (this.state.loading) {
       
       return (

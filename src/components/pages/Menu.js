@@ -72,6 +72,7 @@ class Menu extends Component {
 
     displayAllGenres() {
         this.props.genreAll();    
+        Actions.albumList();
     }
 
     render() {
