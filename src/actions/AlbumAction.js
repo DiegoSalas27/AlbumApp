@@ -3,6 +3,7 @@ import firebase from 'firebase';
 import { Actions } from 'react-native-router-flux';
 import {
     GENRE_CHANGED,
+    SHOW_BUTTON,
     GENRE_ALL,
     ALBUM_FETCH_SUCCESS
 } from './types';
@@ -53,7 +54,14 @@ export const genreChanged = (genre) => {
 export const genreAll = () => {
     return {
         type: GENRE_ALL,
-        payload: 'hola'
+        payload: 'todos los generos'
+    };
+};
+
+export const showLoadMore = () => {
+    return {
+        type: SHOW_BUTTON,
+        payload: 'show'
     };
 };
 

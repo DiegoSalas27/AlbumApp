@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 import { Text, View, Image } from 'react-native';
-import { albumAdd, albumsFetch } from '../../actions';
+import { albumAdd, albumsFetch, showLoadMore } from '../../actions';
 import { CardSection, Button, Card } from '../common';
 import { styles } from '../common/AlbumStyles'; 
 import Helpers from '../../lib/helpers';
@@ -11,6 +11,7 @@ class AlbumSum extends Component {
     
     componentDidMount() {
         this.props.albumsFetch();
+        this.props.showLoadMore();
     }
 
     OnButtonPress() {
@@ -96,4 +97,4 @@ const mapStateToProps = state => {
 };
 
 // when ever any piece of state upodates, the connect helper will rerun mapStateToProps
-export default connect(mapStateToProps, { albumAdd, albumsFetch })(AlbumSum);
+export default connect(mapStateToProps, { albumAdd, albumsFetch, showLoadMore })(AlbumSum);

@@ -38,7 +38,7 @@ export default class ListItemGrid extends Component {
                     transform: [{ scale: this.state.animatePress }],
                     }}
                 >   
-                    <Fade>
+                    <Fade fadeIt={1000}>
                         <FadeIn>
                             <Image style={imgStyle(itemWidth).imgStyles} source={{ uri: image }} />
                         </FadeIn>

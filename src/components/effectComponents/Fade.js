@@ -7,11 +7,12 @@ export default class Fade extends React.Component {
   }
 
   componentDidMount() {
+    console.log(this.props.fadeIt);
     Animated.timing(                  // Animate over time
       this.state.fadeAnim,            // The animated value to drive
       {
         toValue: 1,                   // Animate to opacity: 1 (opaque)
-        duration: 1000,              // Make it take a while
+        duration: this.props.fadeIt,              // Make it take a while
       }
     ).start();                        // Starts the animation
   }

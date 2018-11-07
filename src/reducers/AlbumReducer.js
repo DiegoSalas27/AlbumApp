@@ -1,5 +1,6 @@
 import {
     GENRE_ALL,
+    SHOW_BUTTON,
     GENRE_CHANGED,
     ALBUM_FETCH_SUCCESS
 } from '../actions/types';
@@ -7,7 +8,8 @@ import {
 const INITIAL_STATE = {
     loading: true,
     albums: null,
-    genre: ''
+    genre: '',
+    loadBtn: false
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -20,6 +22,8 @@ export default (state = INITIAL_STATE, action) => {
             return { ...state, genre: action.payload };
         case GENRE_ALL:
             return { ...state, genre: '' };
+        case SHOW_BUTTON:
+            return { ...state, loadBtn: true };
         default:
             return state;
     }
