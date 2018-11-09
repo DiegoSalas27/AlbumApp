@@ -72,7 +72,7 @@ class Menu extends Component {
 
     displayAllGenres() {
         this.props.genreAll();    
-        Actions.albumList();
+        Actions.albumList({ title: 'cabro' });
     }
 
     render() {

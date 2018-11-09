@@ -49,10 +49,9 @@ class AlbumList extends Component {
   renderButton() {
     const { albums, albumsT } = this.state;
 
-    console.log(this.props.loadBtn);
-    if (this.props.loadBtn && albums.length !== albumsT.length) {
+    if (albums.length !== albumsT.length) {
       return (
-        <Fade fadeIt={5000}>
+        <Fade fadeIt={2000}>
           <CardSection>
               <Button onPress={this.renderMore.bind(this)}>
                 Cargar más
@@ -91,9 +90,9 @@ const styles = {
 };
 
 const mapStateToProps = ({ albums }) => {
-  const { genre, loadBtn } = albums;
+  const { genre } = albums;
 
-  return { genre, loadBtn };
+  return { genre };
 };
 
 export default connect(mapStateToProps, null)(AlbumList);

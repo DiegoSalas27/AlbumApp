@@ -10,6 +10,7 @@ import TrackDetails from './TrackDetails';
 import SeekBar from './SeekBar';
 import Controls from './Controls';
 import Video from 'react-native-video';
+import { Actions } from 'react-native-router-flux';
 
 export default class Player extends Component {
   constructor(props) {
@@ -19,7 +20,7 @@ export default class Player extends Component {
       paused: true,
       totalLength: 1,
       currentPosition: 0,
-      selectedTrack: 0,
+      selectedTrack: props.start,
       repeatOn: false,
       shuffleOn: false,
     };
@@ -77,7 +78,9 @@ export default class Player extends Component {
     }
   }
 
-
+  goBack() {
+    Actions.pop();
+  }
 
   render() {
     const track = this.props.tracks[this.state.selectedTrack];
@@ -98,9 +101,9 @@ export default class Player extends Component {
     return (
       <View style={styles.container}>
         <StatusBar hidden={true} />
-        <Header message={`Tocando ${this.props.album}`} />
+        <Header message={`Tocando ${this.props.album}`} onDownPress={this.goBack.bind(this)} />
         <AlbumArt url={track.albumArtUrl} />
-        <TrackDetails title={track.title} artist={track.artist} />
+        <TrackDetails title={track.title} artist={track.artist} /> 
         <SeekBar
           onSeek={this.seek.bind(this)}
           trackLength={this.state.totalLength}

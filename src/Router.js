@@ -10,6 +10,7 @@ import Player from './components/Player';
 import Menu from './components/pages/Menu';
 import Profile from './components/pages/Profile';
 import Genre from './components/pages/Genre';
+import SongList from './components/pages/SongList';
 
 const MenuIcon = () => {
     return (
@@ -33,7 +34,6 @@ const RouterComponent = () => {
                         drawerIcon={MenuIcon}
                         drawerWidth={300}
                         hideNavBar
-                        type={ActionConst.REFRESH}
                     >
                         <Scene 
                             onRight={() => Actions.myList()}
@@ -58,6 +58,7 @@ const RouterComponent = () => {
                     <Scene key="albumDetail" component={AlbumDetail} title="Detalle de álbum" />
                     <Scene key="player" component={Player} hideNavBar />
                     <Scene key="profile" component={Profile} title="Perfil" />
+                    <Scene key="songList" component={SongList} title="Lista de canciones" />
                 </Stack>              
             </Stack>
         </Router>

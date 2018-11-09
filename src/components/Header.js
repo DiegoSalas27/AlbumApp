@@ -1,14 +1,14 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 
-const Header = ({ message, onDownPress, onQueuePress,  onMessagePress, }) => (
+const Header = ({ message, onDownPress, onQueuePress }) => (
   <View style={styles.container}>
     <TouchableOpacity onPress={onDownPress}>
       <Image style={styles.button}
         source={require('../img/ic_keyboard_arrow_down_white.png')} />
     </TouchableOpacity>
-    <Text onPress={onMessagePress}
+    <Text>
       style={styles.message}>{message.toUpperCase()}</Text>
     <TouchableOpacity onPress={onQueuePress}>
       <Image style={styles.button}

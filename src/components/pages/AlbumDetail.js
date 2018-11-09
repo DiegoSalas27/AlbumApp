@@ -20,10 +20,14 @@ class AlbumDetail extends Component {
     onDecline() {
         this.setState({ showModal: false });
     }
-
+    
     OnButtonPress() {
-        Actions.player({ tracks: this.props.Item.songs, album: this.props.Item.title });
+        Actions.songList({ album: this.props.Item });
     }
+
+    // OnButtonPress() {
+    //     Actions.player({ tracks: this.props.Item.songs, album: this.props.Item.title });
+    // }
 
     render() {
         const { title, artist, thumbnail_image, image, url } = this.props.Item;
@@ -52,7 +56,7 @@ class AlbumDetail extends Component {
 
                         <CardSection>
                             <Button onPress={this.OnButtonPress.bind(this)}>
-                                Play
+                                Ver álbum
                             </Button>
                         </CardSection>
 
