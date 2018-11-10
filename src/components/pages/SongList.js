@@ -24,7 +24,7 @@ class SongList extends Component {
         this.setState({ songs: filteredSongs });
     };
 
-    playAlbum(item, index) {
+    playAlbum(index) {
         Actions.player({ tracks: this.props.album.songs, album: this.props.album.title, start: index });
     }
 
@@ -84,7 +84,7 @@ class SongList extends Component {
                                 subtitle={item.title}
                                 avatar={this.renderAvatar(item)}
                                 containerStyle={{ borderBottomWidth: 0 }}
-                                onPress={() => this.playAlbum(item, index)}
+                                onPress={() => this.playAlbum(index)}
                                 underlayColor='#5F42B1'
                             />
                         )}
