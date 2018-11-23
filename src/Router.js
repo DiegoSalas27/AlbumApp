@@ -11,6 +11,8 @@ import Menu from './components/pages/Menu';
 import Profile from './components/pages/Profile';
 import Genre from './components/pages/Genre';
 import SongList from './components/pages/SongList';
+import UploadMusic from './components/pages/UploadMusic';
+import RankingAlbum from './components/pages/RakingAlbum';
 
 const MenuIcon = () => {
     return (
@@ -53,6 +55,16 @@ const RouterComponent = () => {
                             key="genre" 
                             component={Genre}
                             title="Buscar por género"   
+                        /> 
+                        <Scene
+                            key="uploadMusic"
+                            component={UploadMusic}
+                            title="Subir nuevo álbum"
+                        />  
+                        <Scene
+                            key="rankingAlbum"
+                            component={RankingAlbum}
+                            title="Tú ranking de álbumes"
                         />     
                     </Scene>
                     <Scene key="albumDetail" component={AlbumDetail} title="Detalle de álbum" />

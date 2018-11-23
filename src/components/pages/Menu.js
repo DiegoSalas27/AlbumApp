@@ -81,8 +81,16 @@ class Menu extends Component {
 
     renderUploadMusic() {
         if (this.state.accounttype === 'banda') {
-            return (<ListItem onPress={() => Actions.genre()}>
+            return (<ListItem onPress={() => Actions.uploadMusic()}>
                         <Text>Subir álbum</Text>
+            </ListItem>);
+        }
+    }
+
+    renderRankingAlbum() {
+        if (this.state.accounttype === 'banda') {
+            return (<ListItem onPress={() => Actions.rankingAlbum()}>
+                        <Text>Tú ranking de álbumes</Text>
             </ListItem>);
         }
     }
@@ -122,6 +130,7 @@ class Menu extends Component {
                                 <Text>Perfil</Text>
                             </ListItem>
                             {this.renderUploadMusic()}
+                            {this.renderRankingAlbum()}
                             <ListItem onPress={() => Actions.auth()}>
                                 <Text>Cerrar sesión</Text>
                             </ListItem>
