@@ -93,7 +93,6 @@ class WelcomeDialog extends Component {
                             {
                                 width: 99,
                                 height: 87,
-                                backgroundColor: "black",
                                 marginTop: 10,
                                 resizeMode: "contain",
                             }
@@ -113,7 +112,6 @@ class WelcomeDialog extends Component {
                 <ConfirmDialog
                     titleStyle={{ textAlign: 'center' }}
                     title="Confirmar tipo de cuenta"
-                    onTouchOutside={ () => this.openConfirm(false) }
                     visible={ this.state.showConfirm }
                     negativeButton={
                         {   

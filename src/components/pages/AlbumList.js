@@ -2,34 +2,27 @@ import React, { Component } from 'react';
 import { ScrollView, View } from 'react-native';
 import axios from 'axios';
 import { connect } from 'react-redux';
-import firebase from 'firebase';
 import { Actions } from 'react-native-router-flux';
 import Spinner from 'react-native-spinkit';
 import AlbumSum from './AlbumSum';
 import { CardSection, Button } from '../common';
 import Fade from '../effectComponents/Fade';
-import WelcomeDialog from './welcomeDialog';
-import Helpers from '../../lib/helpers';
 
 class AlbumList extends Component {
-  state = {
-    albums: [],
-    loading: true,
-    limit: 2,
-    albumsT: [],
-    accounttype: ''
-  };
-
+  constructor(props) {
+    super(props);
+    this.state = {
+      albums: [],
+      loading: true,
+      limit: 2,
+      albumsT: [],
+    };
+  }
+ 
   async componentDidMount() {
     const { limit } = this.state;
     const { genre } = this.props; 
     console.log('title', this.props.title);
-
-    const user = await firebase.auth().currentUser;
-
-    Helpers.getAccoutType(user.uid, (accountType) => {
-      this.setState({ accounttype: accountType });
-    });
 
     axios.get(`https://albumapp-api.herokuapp.com/albums?genre=${genre}&offset=0&limit=${limit}`)
       .then(response => this.setState({ albums: response.data, loading: false }));
@@ -71,12 +64,6 @@ class AlbumList extends Component {
     }
   }
 
-  renderWelcomeDialog() {
-    if (this.state.accounttype === '') {
-      return <WelcomeDialog />;
-    }
-  }
-
   render() {
     if (this.state.loading) {
       
@@ -89,7 +76,6 @@ class AlbumList extends Component {
 
     return (
       <ScrollView style={{ flex: 1, backgroundColor: '#0277BD' }}>
-        {this.renderWelcomeDialog()}
         {this.renderAlbums()}
         {this.renderButton()}
       </ScrollView>

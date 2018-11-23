@@ -6,6 +6,7 @@ import { Content, List, ListItem, Thumbnail } from 'native-base';
 import firebase from 'firebase';
 import { genreAll } from '../../actions';
 import Helpers from '../../lib/helpers';
+import WelcomeDialog from './welcomeDialog';
 
 class Menu extends Component {
     constructor(props) {
@@ -17,7 +18,8 @@ class Menu extends Component {
             userLastname: '',
             userEmail: '',
             userBio: '',
-            uid: ''
+            uid: '',
+            accounttype: this.props.account
         };
     }
     
@@ -25,25 +27,28 @@ class Menu extends Component {
     async componentDidMount() {
         console.log('menu Mounted!');
         try {
-          const user = await firebase.auth().currentUser;
+            const user = await firebase.auth().currentUser;
 
-          Helpers.getImageUrl(user.uid, (imageUrl) => {
-            this.setState({ avatarUrl: imageUrl });
-          });
-          Helpers.getUserName(user.uid, (name) => {
-            this.setState({ userName: name });
-          });
-          Helpers.getUserLastname(user.uid, (lastname) => {
-            this.setState({ userLastname: lastname });
-          });
-          Helpers.getUserEmail(user.uid, (email) => {
-            this.setState({ userEmail: email });
-          });
-          Helpers.getUserBio(user.uid, (bio) => {
-            this.setState({ userBio: bio });
-          });
+            Helpers.getImageUrl(user.uid, (imageUrl) => {
+                this.setState({ avatarUrl: imageUrl });
+            });
+            Helpers.getUserName(user.uid, (name) => {
+                this.setState({ userName: name });
+            });
+            Helpers.getUserLastname(user.uid, (lastname) => {
+                this.setState({ userLastname: lastname });
+            });
+            Helpers.getUserEmail(user.uid, (email) => {
+                this.setState({ userEmail: email });
+            });
+            Helpers.getUserBio(user.uid, (bio) => {
+                this.setState({ userBio: bio });
+            });
+            Helpers.getAccoutType(user.uid, (accountType) => {
+            this.setState({ accounttype: accountType });
+            });
 
-          this.setState({ uid: user.uid });
+            this.setState({ uid: user.uid });
         } catch (error) {
             console.log(error);
         }
@@ -75,18 +80,25 @@ class Menu extends Component {
     }
 
     renderUploadMusic() {
-        if (this.props.account === 'banda') {
+        if (this.state.accounttype === 'banda') {
             return (<ListItem onPress={() => Actions.genre()}>
                         <Text>Subir álbum</Text>
             </ListItem>);
         }
     }
 
+    renderWelcomeDialog() {
+        if (this.state.accounttype === '') {
+          return <WelcomeDialog />;
+        }
+    }
+
     render() {
         const { userName, userLastname, userEmail, userBio, avatarUrl } = this.state;
-        console.log(this.props.account);
+        console.log(this.state.accounttype);
         return (
             <View style={{ flex: 1 }}>
+                {this.renderWelcomeDialog()}
                 <View style={{ flex: 1, backgroundColor: '#2c3e50', justifyContent: 'center', alignItems: 'center' }}>
                     {this.mostrarAvatar()}
                     {this.mostrarNombreUsuario()}
