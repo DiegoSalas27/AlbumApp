@@ -2,8 +2,8 @@ import { ToastAndroid } from 'react-native';
 import firebase from 'firebase';
 import { Actions } from 'react-native-router-flux';
 import {
+    ACCOUNT_SELECTED,
     GENRE_CHANGED,
-    SHOW_BUTTON,
     GENRE_ALL,
     ALBUM_FETCH_SUCCESS
 } from './types';
@@ -58,10 +58,10 @@ export const genreAll = () => {
     };
 };
 
-export const showLoadMore = () => {
+export const setAccount = (value) => {
     return {
-        type: SHOW_BUTTON,
-        payload: 'show'
+        type: ACCOUNT_SELECTED,
+        payload: value
     };
 };
 

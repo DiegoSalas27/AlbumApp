@@ -10,8 +10,7 @@ import {
     Platform,
     ToastAndroid, 
     Dimensions,
-    ScrollView,
-    Thumbnail
+    ScrollView
 } from 'react-native';
 
 import ImagePicker from 'react-native-image-picker';

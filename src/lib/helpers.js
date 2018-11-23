@@ -25,6 +25,12 @@ export default class Helpers {
         const userNamePath = `/users/${uid}/profile/url`;
         return firebase.database().ref(userNamePath).set(url);
     }
+
+    static setAccountType(uid, accounttype) {
+        const userNamePath = `/users/${uid}/profile/accounttype`;
+        return firebase.database().ref(userNamePath).set(accounttype);
+    }
+
     static getImageUrl(uid, callback) {
         const userNamePath = `/users/${uid}/profile/url`;
         firebase.database().ref(userNamePath).on('value', (snapshot) => {
@@ -73,6 +79,17 @@ export default class Helpers {
                 bio = snapshot.val();
             }
             callback(bio);
+        });
+    }
+
+    static getAccoutType(uid, callback) {
+        const userNamePath = `/users/${uid}/profile/accounttype`;
+        firebase.database().ref(userNamePath).on('value', (snapshot) => {
+            let accountType = '';
+            if (snapshot.val()) {
+                accountType = snapshot.val();
+            }
+            callback(accountType);
         });
     }
 

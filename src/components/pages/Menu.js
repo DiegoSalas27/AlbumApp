@@ -24,7 +24,6 @@ class Menu extends Component {
 
     async componentDidMount() {
         console.log('menu Mounted!');
-
         try {
           const user = await firebase.auth().currentUser;
 
@@ -72,12 +71,20 @@ class Menu extends Component {
 
     displayAllGenres() {
         this.props.genreAll();    
-        Actions.albumList({ title: 'cabro' });
+        Actions.albumList();
+    }
+
+    renderUploadMusic() {
+        if (this.props.account === 'banda') {
+            return (<ListItem onPress={() => Actions.genre()}>
+                        <Text>Subir álbum</Text>
+            </ListItem>);
+        }
     }
 
     render() {
         const { userName, userLastname, userEmail, userBio, avatarUrl } = this.state;
-
+        console.log(this.props.account);
         return (
             <View style={{ flex: 1 }}>
                 <View style={{ flex: 1, backgroundColor: '#2c3e50', justifyContent: 'center', alignItems: 'center' }}>
@@ -102,6 +109,7 @@ class Menu extends Component {
                             >
                                 <Text>Perfil</Text>
                             </ListItem>
+                            {this.renderUploadMusic()}
                             <ListItem onPress={() => Actions.auth()}>
                                 <Text>Cerrar sesión</Text>
                             </ListItem>
@@ -114,9 +122,9 @@ class Menu extends Component {
 }
 
 const mapStateToProps = ({ albums }) => {
-    const { genre } = albums;
+    const { genre, account } = albums;
   
-    return { genre };
+    return { genre, account };
   };
 
 export default connect(mapStateToProps, { genreAll })(Menu);

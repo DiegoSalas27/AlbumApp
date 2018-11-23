@@ -9,8 +9,7 @@ export const SIGNUP_USER = 'signup_user';
 export const ALBUM_ADD = 'album_add';
 export const USER_UPDATE = 'user_update';
 export const ALBUM_FETCH_SUCCESS = 'album_fetch_success';
+export const ACCOUNT_SELECTED = 'account_selected';
 export const FETCHING_ALBUMS = 'fetching_albums';
 export const GENRE_ALL = 'genre_all';
-export const SHOW_BUTTON = 'show_button';
 export const GENRE_CHANGED = 'genre_changed';
-
