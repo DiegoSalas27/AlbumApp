@@ -1,6 +1,6 @@
 # Album App
 
-This is the final project for the course Evolución de software. It is a mobile application for listening to music and letting unknown artist to upload their own albums for the community to listen to them.
+This is the final project for the course Evolución de software. It is a mobile application for listening to music and letting unknown artist to upload their own albums for the community to listen.
 
 <img src="https://media.giphy.com/media/8meyh0VvSA6lhH1ohi/giphy.gif"/> | <img src="https://media.giphy.com/media/1xkupQ2FfGMuecgCA1/giphy.gif"/>
 
